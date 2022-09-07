@@ -29,13 +29,17 @@ namespace GSGcategoryItemProjectDbFirst.Controllers
         {
             return Ok(_itemServices.Getall());
         }
-        //public IActionResult SaveFile(int id)
-        //{
-        //    var builder = new StringBuilder();
-        //    var data = _itemServices.Get(id).ToString();
-        //    builder.AppendLine(data);
-        //    return File(Encoding.UTF8.GetBytes(builder.ToString()),"text/csv","data.csv");
-        //}
+
+        [HttpGet]
+        public IActionResult SaveFile()
+        {
+
+            var builder = new StringBuilder();
+            var data = _itemServices.Getall().ToArray();
+            builder.AppendLine(data.ToString());
+            return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "data.csv");
+
+        }
         //[Route("getcsv")]
         //[HttpGet]
         //public IActionResult GetCSV(int id)

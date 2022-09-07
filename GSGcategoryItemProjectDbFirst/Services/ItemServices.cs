@@ -22,17 +22,14 @@ namespace GSGcategoryItemProjectDbFirst.Services
 
         public ItemDto Get(int id)
         {
-            var items = _db.Items.Include(x => x.SupCategory).FirstOrDefault(X => X.Id == id);
-            //var sup =  _db.SupCategories.FirstOrDefaultAsync(x => x.Id == items.SupCategoryId);
-            var category = _db.Categories.FirstOrDefault(x => x.Id == items.SupCategory.CategoryId);
+            var items = _db.Items.Include(x => x.SupCategory).Include(x => x.SupCategory.Category).FirstOrDefault(x => x.Id == id);
 
             var data = new ItemDto
             {
                 Id = items.Id,
                 Name = items.Name,
                 SupCategoryName = items.SupCategory.Name,
-                CategoryName = category.Name
-
+                CategoryName = items.SupCategory.Category.Name
             };
             return data;
 
